@@ -1,14 +1,13 @@
-#pragma once
 #include <iostream>
-#include <string>
 #include <vector>
+#include <string>
 #include <algorithm>
 
 class BigInteger {
 	friend void swap(BigInteger& a, BigInteger& b);
 	friend BigInteger abs(BigInteger a);
 	friend std::istream& operator>>(std::istream& in, BigInteger& a);
-	friend std::ostream& operator<<(std::ostream& out, BigInteger a);
+	friend std::ostream& operator<<(std::ostream& out, BigInteger& a);
 	friend bool operator<(const BigInteger& a, const BigInteger& b);
 	friend bool operator>(const BigInteger& a, const BigInteger& b);
 	friend bool operator==(const BigInteger& a, const BigInteger& b);
@@ -18,13 +17,16 @@ class BigInteger {
 	friend BigInteger operator+(const BigInteger& a, const BigInteger& b);
 	friend BigInteger operator-(const BigInteger& a, const BigInteger& b);
 	friend BigInteger operator*(const BigInteger& a, const BigInteger& b);
+	friend BigInteger operator/(const BigInteger& a, const int& b);
 	friend BigInteger operator/(const BigInteger& a, const BigInteger& b);
 	friend BigInteger operator%(const BigInteger& a, const BigInteger& b);
-	friend BigInteger get_mid(BigInteger a);
+	friend void calc(BigInteger& a, const BigInteger& b, bool minus);
 private:
 
 	bool sign;
-	std::string num;
+	std::vector<int> num;
+	static const int base = 1e6;
+    static const int pw = 6;
 public:
 
 	BigInteger(std::string num="");
@@ -46,5 +48,5 @@ public:
 	BigInteger operator/=(const BigInteger& b);
 	BigInteger operator%=(const BigInteger& b);
 	operator bool();
+	void relx();
 };
-
