@@ -52,15 +52,15 @@ bool BigInteger::getSign() {
 }
 std::string BigInteger::toString() {
 	std::string out;
-    for (auto &i : num) {
-        long long cur = i;
-        while (cur) {
-            out += ('0' + (cur % 10));
-            cur /= 10;
-        }
-    }
-    if (!sign) out += '-';
-    std::reverse(out.begin(), out.end());
+	for (auto &i : num) {
+		long long cur = i;
+		while (cur) {
+			out += ('0' + (cur % 10));
+			cur /= 10;
+		}
+	}
+	if (!sign) out += '-';
+	std::reverse(out.begin(), out.end());
 	return out;
 }
 
@@ -113,34 +113,7 @@ bool operator<(const BigInteger& a, const BigInteger& b) {
 }
 bool operator>(const BigInteger& a, const BigInteger& b) {
 	if (a == b) return false;
-	if (a.sign) {
-		if (b.sign) {
-			if (a.num.size() != b.num.size())
-				return a.num.size() > b.num.size();
-			else {
-				for (int i = 0; i < a.num.size(); ++i) {
-					if (a.num[i] != b.num[i]) return a.num[i] > b.num[i];
-				}
-			}
-		}
-		else {
-			return true;
-		}
-	}
-	else {
-		if (b.sign) {
-			return false;
-		}
-		else {
-			if (a.num.size() != b.num.size())
-				return a.num.size() < b.num.size();
-			else {
-				for (int i = 0; i < a.num.size(); ++i) {
-					if (a.num[i] != b.num[i]) return a.num[i] < b.num[i];
-				}
-			}
-		}
-	}
+	return b < a;
 }
 bool operator==(const BigInteger& a, const BigInteger& b) {
 	return (a.sign == b.sign) && (a.num == b.num);
