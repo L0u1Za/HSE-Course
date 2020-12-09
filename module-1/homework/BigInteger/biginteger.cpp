@@ -90,6 +90,7 @@ bool operator<(const BigInteger& a, const BigInteger& b) {
 				for (int i = 0; i < a.num.size(); ++i) {
 					if (a.num[i] != b.num[i]) return a.num[i] < b.num[i];
 				}
+				return false;
 			}
 		}
 		else {
@@ -107,6 +108,7 @@ bool operator<(const BigInteger& a, const BigInteger& b) {
 				for (int i = 0; i < a.num.size(); ++i) {
 					if (a.num[i] != b.num[i]) return a.num[i] > b.num[i];
 				}
+				return false;
 			}
 		}
 	}
