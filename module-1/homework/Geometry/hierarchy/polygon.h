@@ -23,6 +23,6 @@ public:
     std::vector<double> getSides() const;
     std::vector<double> getAngles() const;
 
- protected:
-  std::vector<Point> vertex;
+  protected:
+    std::vector<Point> vertex;
 };

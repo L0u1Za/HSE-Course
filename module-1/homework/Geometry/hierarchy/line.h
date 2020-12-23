@@ -1,8 +1,16 @@
 #pragma once
 #include "point.h"
 
-struct Line {
-    double a, b, c;
+class Shape;
+class Polygon;
+class Triangle;
+class Rectangle;
+class Line {
+    friend Shape;
+    friend Polygon;
+    friend Triangle;
+    friend Rectangle;
+public:
     Line() = default;
     Line(Point a, Point b);
     Line(double _a, double _b, double _c);
@@ -12,4 +20,6 @@ struct Line {
     static double distance_pt_to_line(const Point& p, const Line& l);
     static Point projection_pt_to_line(const Point& p, const Line& l);
     static void reflexPoint(Point& point, Line l);
+private:
+    double a, b, c;
 };

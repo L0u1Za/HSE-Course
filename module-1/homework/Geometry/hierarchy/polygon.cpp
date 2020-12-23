@@ -26,7 +26,7 @@ bool Polygon::isCongruentTo(const Shape& o) const {
     const auto* poly = dynamic_cast<const Polygon*>(&o);
     if (poly == nullptr) return false;
     if (poly->verticesCount() != verticesCount()) return false;
-    bool ok = true;
+
     auto sides = getSides();
     auto angles = getAngles();
     auto o_sides = poly->getSides();
@@ -35,6 +35,8 @@ bool Polygon::isCongruentTo(const Shape& o) const {
     sort(o_sides.begin(), o_sides.end());
     sort(angles.begin(), angles.end());
     sort(o_angles.begin(), o_angles.end());
+
+    bool ok = true;
     for (int i = 0; i < vertex.size(); ++i) {
         ok &= ((fabs(sides[i] - o_sides[i]) < Point::EPS) && (fabs(angles[i] - o_angles[i]) < Point::EPS));
     }
@@ -44,7 +46,7 @@ bool Polygon::isSimilarTo(const Shape& o) const {
     const auto* poly = dynamic_cast<const Polygon*>(&o);
     if (poly == nullptr) return false;
     if (poly->verticesCount() != verticesCount()) return false;
-    bool ok = true;
+
     auto sides = getSides();
     auto angles = getAngles();
     auto o_sides = poly->getSides();
@@ -53,7 +55,9 @@ bool Polygon::isSimilarTo(const Shape& o) const {
     sort(o_sides.begin(), o_sides.end());
     sort(angles.begin(), angles.end());
     sort(o_angles.begin(), o_angles.end());
+
     double k = sides.back() / o_sides.back();
+    bool ok = true;
     for (int i = 0; i + 1 < vertex.size(); ++i) {
         ok &= ((fabs(sides[i] / o_sides[i] - k) < Point::EPS) && (fabs(angles[i] - o_angles[i]) < Point::EPS));
     }
@@ -65,7 +69,10 @@ bool Polygon::containsPoint(Point point) const {
         Point a = vertex[i];
         Point b = vertex[(i + 1) % int(vertex.size())];
         angle += Point::angle_pt_to_pt(a - point, b - point);
-        if (Point::length(a - point) + Point::length(b - point) - Point::length(b - a) < Point::EPS) return true;
+        double lenPA = Point::length(a - point);
+        double lenPB = Point::length(b - point);
+        double lenAB = Point::length(b - a);
+        if (lenPA + lenPB - lenAB < Point::EPS) return true;
     }
     return (fabs(angle - 2 * Point::PI) < Point::EPS);
 }
@@ -93,11 +100,13 @@ bool Polygon::operator==(const Shape& o) const {
     const auto* poly = dynamic_cast<const Polygon*>(&o);
     if (poly == nullptr) return false;
     if (poly->verticesCount() != verticesCount()) return false;
-    bool ok = true;
+
     auto my = vertex;
     auto other = poly->vertex;
     sort(my.begin(), my.end());
     sort(other.begin(), other.end());
+
+    bool ok = true;
     for (int i = 0; i < vertex.size(); ++i) {
         ok &= (my[i] == other[i]);
     }

@@ -18,9 +18,7 @@ public:
     double eccentricity() const;
     Point center() const;
     bool operator==(const Shape& o) const override;
-
 private:
     Point fa, fb;
     double a, b, c;
-
 };

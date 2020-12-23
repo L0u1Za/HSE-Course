@@ -13,4 +13,5 @@ protected:
 private:
     Point top, bot;
     double k;
+    double height, width;
 };

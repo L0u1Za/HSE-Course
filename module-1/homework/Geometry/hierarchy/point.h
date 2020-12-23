@@ -1,6 +1,9 @@
 #pragma once
-struct Point {
+
+class Point {
+public:
     double x, y;
+    
     Point() = default;
     Point(double x, double y);
     Point(const Point& o);

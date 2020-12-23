@@ -3,8 +3,8 @@
 
 Rectangle::Rectangle(Point top, Point bot, double k) : top(top), bot(bot), k(k) {
     double diag = Point::distance_pt_to_pt(top, bot);
-    double height = diag / sqrt(1 + k * k);
-    double width = sqrt(diag * diag - height * height);
+    height = diag / sqrt(1 + k * k);
+    width = sqrt(diag * diag - height * height);
 
     Point topLeft = top - Point(width, 0);
     Point botLeft = top - Point(0, height);
@@ -24,9 +24,9 @@ std::pair<Line, Line> Rectangle::diagonals() const {
 }
 
 double Rectangle::getHeight() const {
-    return Point::distance_pt_to_pt(top, bot) * sqrt((1.0 - 1.0 / (1.0 + k)));
+    return height;
 }
 
 double Rectangle::getWidth() const {
-    return Point::distance_pt_to_pt(top, bot) / sqrt(1 + k);
+    return width;
 }

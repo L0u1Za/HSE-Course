@@ -29,7 +29,9 @@ Point Ellipse::center() const {
 bool Ellipse::isCongruentTo(const Shape& o) const {
     const auto* ellipse = dynamic_cast<const Ellipse*>(&o);
     if (ellipse == nullptr) return false;
-    return (fabs(Point::distance_pt_to_pt(fa, fb) - Point::distance_pt_to_pt(ellipse->fa, ellipse->fb)) < Point::EPS) && (fabs(a - ellipse->a) < Point::EPS);
+    double focuses_distance = Point::distance_pt_to_pt(fa, fb);
+    double other_focuses_distance = Point::distance_pt_to_pt(ellipse->fa, ellipse->fb);
+    return (fabs(focuses_distance - other_focuses_distance) < Point::EPS) && (fabs(a - ellipse->a) < Point::EPS);
 }
 
 bool Ellipse::isSimilarTo(const Shape& o) const {
@@ -71,5 +73,6 @@ std::pair<Line, Line> Ellipse::directries() const {
 bool Ellipse::operator==(const Shape& o) const {
     const auto* ellipse = dynamic_cast<const Ellipse*>(&o);
     if (ellipse == nullptr) return false;
-    return ((fa == ellipse->fa && fb == ellipse->fb) || (fa == ellipse->fb && fb == ellipse->fa)) && fabs(a - ellipse->a) < Point::EPS;
+    bool equal_focuses = (fa == ellipse->fa && fb == ellipse->fb) || (fa == ellipse->fb && fb == ellipse->fa);
+    return equal_focuses && fabs(a - ellipse->a) < Point::EPS;
 }
